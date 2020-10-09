@@ -65,6 +65,22 @@ public class CLICalculator {
 			}
 		}
 		
+		private void helper() {
+			System.out.println("How to use:");
+			System.out.println("The calculator supports these form of input:");
+			System.out.println("\t1. Two variables and an operand, like");
+			System.out.println("\t\t1 + 1\n\t\t3 * 4");
+			System.out.println("\tNote that it'll always reset the stored calculations");
+			System.out.println("\t2. An operand and a variable, like");
+			System.out.println("\t\t- 7\n\t\t* 7");
+			System.out.println("\t3. Using Rule 1 and 2 in conjunction, can lead to");
+			System.out.println("\t\t3 + 3 + 3");
+			System.out.println("\tNote that PEMDAS does not apply here");
+			System.out.println("\t4. While running, type 'C' to reset the stored amount");
+			System.out.println("\t5. To exit calculation, type 'E'");
+			System.out.println("Start calculating? Y/N");
+		}
+		
 		private void run() {
 			boolean exitState = false;
 			Scanner scan = new Scanner(System.in);
@@ -105,24 +121,11 @@ public class CLICalculator {
 				run();
 				break;
 			case 2:
-				System.out.println("How to use:");
-				System.out.println("The calculator supports these form of input:");
-				System.out.println("\t1. Two variables and an operand, like");
-				System.out.println("\t\t1 + 1\n\t\t3 * 4");
-				System.out.println("\tNote that it'll always reset the stored calculations");
-				System.out.println("\t2. An operand and a variable, like");
-				System.out.println("\t\t- 7\n\t\t* 7");
-				System.out.println("\t3. Using Rule 1 and 2 in conjunction, can lead to");
-				System.out.println("\t\t3 + 3 + 3");
-				System.out.println("\tNote that PEMDAS does not apply here");
-				System.out.println("\t4. While running, type 'C' to reset the stored amount");
-				System.out.println("\t5. To exit calculation, type 'E'");
-				System.out.println("Start calculating? Y/N");
+				helper();
 				Scanner input = new Scanner(System.in);
 				char desc = input.next().charAt(0);
 				if (desc == 'Y') startDecision(1);
 				else startDecision(3);
-				
 				break;
 			case 3:
 				System.out.println("Terminating...");
