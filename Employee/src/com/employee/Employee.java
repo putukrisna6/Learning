@@ -8,7 +8,7 @@ public class Employee {
 	
 	//Checkers
 	private double checkMonthlyPay(double monthlyPay) {
-		return (monthlyPay < 0.0F) ? 0.0F : monthlyPay;
+		return (monthlyPay < 0.0F) ? this.monthlyPay : monthlyPay;
 	}
 	
 	//Constructor
@@ -22,10 +22,22 @@ public class Employee {
 	public void setMonthlyPay(double newMonthlyPay) {
 		this.monthlyPay = checkMonthlyPay(newMonthlyPay);
 	}
+	public void setFirstName(String newFirstName) {
+		this.firstName = newFirstName;
+	}
+	public void setLastName(String newLastName) {
+		this.lastName = newLastName;
+	}
 	
 	//Getters
 	public double getMonthlyPay() {
 		return this.monthlyPay;
+	}
+	public String getFirstName() {
+		return this.firstName;
+	}
+	public String getLastName() {
+		return this.lastName;
 	}
 	
 	//Method
