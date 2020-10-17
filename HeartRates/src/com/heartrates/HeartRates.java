@@ -52,13 +52,24 @@ public class HeartRates {
 	}
 	
 	//Methods
-	public int personAge() {
-		return 0;
+	private int getAge() {
+		if (this.birthDay <= 20 && this.birthMonth <= 10) {
+			return 2020 - this.birthYear;
+		}
+		else return 2019 - this.birthYear;
 	}
-	public int maxHeartRate() {
-		return 0;
+	private int maxHeartRate() {
+		return 220 - this.getAge();
 	}
-	public int targetHeartRate() {
-		return 0;
+	private double targetHeartRate(double range) {
+		return this.maxHeartRate() * range;
+	}
+	public void displayStartDetails() {
+		System.out.println("Displaying your entered information: ");
+		System.out.println("Name\t\t\t: " + this.getFirstName() + " " + this.getLastName());
+		System.out.println("DOB\t\t\t: " + this.getBirthDay() + "/" + this.getBirthMonth() + "/" + this.getBirthYear());
+		System.out.println("Age\t\t\t: " + this.getAge() + " Years Old");
+		System.out.println("Maximum Heart Rate\t: " + this.maxHeartRate() + " BPM");
+		System.out.println("Target Heart Rate\t: " + this.targetHeartRate(0.5) + " to " + this.targetHeartRate(0.85) + " BPM");
 	}
 }
