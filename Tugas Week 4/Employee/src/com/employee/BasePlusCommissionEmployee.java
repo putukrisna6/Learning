@@ -13,6 +13,7 @@ public class BasePlusCommissionEmployee extends CommissionEmployee{
 		this.baseSalary = baseSalary;
 	}
 	
+	
 	public double getBaseSalary() {
 		return baseSalary;
 	}
