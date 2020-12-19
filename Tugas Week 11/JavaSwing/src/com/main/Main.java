@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		JFrame window = new JFrame("Assignment 4 - Java Swing");
+		JFrame window = new JFrame("Assignment 5 - Java Swing");
 		
 		window.setContentPane(new MainPanel());
 		window.setDefaultCloseOperation(

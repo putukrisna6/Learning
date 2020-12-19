@@ -23,9 +23,10 @@ public class BouncingBallState extends State {
 	private Ball ball2 = new Ball(60);
 	private Ball ball3 = new Ball(120);
 	
+//	Constructor
 	public BouncingBallState(StateManager sm) {
 		super(sm);
-		
+//		load the background image and instantiate the font that'll be used in this state
 		try {
 			bg = new Background("/Backgrounds/bounceball.png", 1);
 			bg.setVector(0, 0);
@@ -39,9 +40,9 @@ public class BouncingBallState extends State {
 
 	@Override
 	public void init() {}
+//	call each balls' method to make them move
 	@Override
 	public void update() {
-		bg.update();
 		ball1.move();
 		ball2.move();
 		ball3.move();
@@ -50,7 +51,7 @@ public class BouncingBallState extends State {
 	public void draw(Graphics2D g2d) {
 		bg.draw(g2d);
 		
-//		draw option
+//		draw option text
 		g2d.setRenderingHint(
 				RenderingHints.KEY_TEXT_ANTIALIASING, 
 				RenderingHints.VALUE_TEXT_ANTIALIAS_ON
@@ -79,6 +80,7 @@ public class BouncingBallState extends State {
 		g2d.setColor(Color.DARK_GRAY);
 	}
 	
+//	Receive key inputs
 	@Override
 	public void keyPressed(int k) {
 		if (k == KeyEvent.VK_ENTER) {
@@ -88,6 +90,7 @@ public class BouncingBallState extends State {
 	@Override
 	public void keyReleased(int k) {}
 	
+//	Methods to keep the String centered
 	private int makeWidth(String text, FontMetrics m) {
 		return (Commons.WIDTH / 2) - (m.stringWidth(text) / 2);
 	}

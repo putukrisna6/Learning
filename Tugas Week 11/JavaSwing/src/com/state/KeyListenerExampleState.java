@@ -28,9 +28,11 @@ public class KeyListenerExampleState extends State {
 			};
 	private int currentChoice = 0;
 	
+//	constructor
 	public KeyListenerExampleState(StateManager sm) {
 		super(sm);
 		
+//		load the image and instantiate fonts to be used later
 		try {
 			bg = new Background("/Backgrounds/keylistexbg.png", 1);
 			bg.setVector(0, 0);
@@ -54,9 +56,7 @@ public class KeyListenerExampleState extends State {
 		
 	}
 	@Override
-	public void update() {
-		bg.update();
-	}
+	public void update() {	}
 	@Override
 	public void draw(Graphics2D g2d) {
 		bg.draw(g2d);

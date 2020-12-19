@@ -59,6 +59,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		sm = new StateManager();
 	}
 	
+//	Listen to keyboard inputs then pass it to state manager to be then passed onto a running state 
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	@Override
@@ -70,6 +71,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		sm.keyReleased(e.getKeyCode());
 	}
 	
+//	Run the application
 	@Override
 	public void run() {
 		init();
@@ -104,6 +106,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 	
+//	method to call a running state's update and draw methods
 	private void update() {
 		sm.update();
 	}

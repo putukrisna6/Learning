@@ -1,39 +1,72 @@
 package com.state;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 public class StateManager {
-	private ArrayList<State> states;
+	private State[] states;
 	private int currentState;
 	
+	public static final int NUMSTATES = 3;
+//	declare variables to help keep track of the available states
 	public static final int MENUSTATE = 0;
 	public static final int KEYEXAMPLESTATE = 1;
 	public static final int BOUNCEBALLSTATE = 2;
 	
+//	Constructor
 	public StateManager() {
-		states = new ArrayList<State>();
+		states = new State[NUMSTATES];
 		
-		currentState = 0;
-		states.add(new MenuState(this));
-		states.add(new KeyListenerExampleState(this));
-		states.add(new BouncingBallState(this));
+		currentState = MENUSTATE;
+		loadState(currentState);
 	}
 	
+//	Method to load the needed state
+	private void loadState(int state) {
+		if (state == MENUSTATE) {
+			states[state] = new MenuState(this);
+		}
+		else if (state == KEYEXAMPLESTATE) {
+			states[state] = new KeyListenerExampleState(this);
+		}
+		else if (state == BOUNCEBALLSTATE) {
+			states[state] = new BouncingBallState(this);
+		}
+	}
+//	Method to unload a state when it's no longer needed
+	private void unloadState(int state) {
+		states[state] = null;
+	}
+//	Method to change state then call the loadState method to load it
 	public void setState(int state) {
+		unloadState(currentState);
 		currentState = state;
-		states.get(currentState).init();
+		
+		loadState(currentState);
 	}
+	
+//	Method to call a state's method to update
 	public void update() {
-		states.get(currentState).update();
+		try {
+			states[currentState].update();
+		}
+		catch (Exception e) {
+			
+		}
 	}
+//	Receive MainPanel's g2d then pass it to a running state so something can be drawn there
 	public void draw(Graphics2D g2d) {
-		states.get(currentState).draw(g2d);
+		try {
+			states[currentState].draw(g2d);
+		}
+		catch (Exception e) {
+		}
 	}
+	
+//	Receive keyboard inputs from MainPanel class then pass it to a running state
 	public void keyPressed(int k) {
-		states.get(currentState).keyPressed(k);
+		states[currentState].keyPressed(k);
 	}
 	public void keyReleased(int k) {
-		states.get(currentState).keyReleased(k);
+		states[currentState].keyReleased(k);
 	}
 }
