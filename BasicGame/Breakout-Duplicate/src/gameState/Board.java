@@ -65,6 +65,9 @@ public class Board extends JPanel {
                 bricks[k] = new Brick(
                 				j * 40 + 30, i * 10 + 50
                 			);
+                if (j % 2 == 0) {
+                	bricks[k].setIsDestroyed(true);
+                }
                 k++;
             }
         }
