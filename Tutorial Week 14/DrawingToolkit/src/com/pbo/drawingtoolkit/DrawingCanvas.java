@@ -77,7 +77,6 @@ public class DrawingCanvas extends JPanel {
 												false
 											);
 			default:
-				
 			}
 		}
 		@Override
