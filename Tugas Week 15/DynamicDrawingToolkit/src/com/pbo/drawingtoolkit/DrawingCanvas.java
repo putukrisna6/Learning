@@ -26,9 +26,8 @@ public class DrawingCanvas extends JPanel {
 	private boolean isDrawing;
 	private boolean isDragging;
 	
-	private double offsetX;
-	private double offsetY;
-	
+	private int offsetX;
+	private int offsetY;
 	
 	JLabel statusLabel;
 	
@@ -48,7 +47,9 @@ public class DrawingCanvas extends JPanel {
 		addMouseListener(handler);
 		addMouseMotionListener(handler);
 		
+		
 		isDrawing = true;
+		isDragging = false;
 	}
 	
 	@Override
@@ -69,25 +70,65 @@ public class DrawingCanvas extends JPanel {
 	}
 	public void clearDrawing() {
 		myShapes.clear();
+		currentShapeObject = null;
 		repaint();
 	}
 	
 	private void selectDrawing(MouseEvent e) {
-		double mx = e.getX();
-		double my = e.getY();
+		int mx = e.getX();
+		int my = e.getY();
+		
+		boolean isSelecting = false;
 		
 		for (int i = 0; i < myShapes.size(); i++) {
 			if (myShapes.get(i) != null) {
-				if (mx > myShapes.get(i).getX1() && mx < myShapes.get(i).getX2() 
-						&& my > myShapes.get(i).getY1() && my < myShapes.get(i).getY2()
+				DrawingObject tempShape = myShapes.get(i);
+				if (
+					mx > tempShape.getX1() && 
+					mx < tempShape.getX2() && 
+					my > tempShape.getY1() && 
+					my < tempShape.getY2()
 						) {
+					isSelecting = true;
+				}
+				else if (
+					mx < tempShape.getX1() && 
+					mx > tempShape.getX2() && 
+					my > tempShape.getY1() && 
+					my < tempShape.getY2()
+						) {
+					isSelecting = true;
+				}
+				else if (
+					mx > tempShape.getX1() && 
+					mx < tempShape.getX2() && 
+					my < tempShape.getY1() && 
+					my > tempShape.getY2()
+						) {
+					isSelecting = true;
+				}
+				else if (
+					mx < tempShape.getX1() && 
+					mx > tempShape.getX2() && 
+					my < tempShape.getY1() && 
+					my > tempShape.getY2()
+						) {
+					isSelecting = true;
+				}
+				
+				if (isSelecting) {
 					isDragging = true;
-					offsetX = mx - myShapes.get(i).getX1();
-					offsetY = my - myShapes.get(i).getY1();
+					tempShape.isSelected = true;
 					
-					currentShapeObject = myShapes.get(i);
-					myShapes.remove(i);
-					return;
+					offsetX = mx - tempShape.getX1();
+				    offsetY = my - tempShape.getY1();
+					
+					currentShapeObject = tempShape;
+					
+					isSelecting = false;
+				}
+				else {
+					tempShape.isSelected = false;
 				}
 			}
 		}
@@ -140,17 +181,13 @@ public class DrawingCanvas extends JPanel {
 			if (isDrawing) {
 				currentShapeObject.setX2(e.getX());
 				currentShapeObject.setY2(e.getY());
-
 				myShapes.add(currentShapeObject);
-				
 				currentShapeObject = null;
 			}
 			else {
 				isDragging = false;
-				
-				myShapes.add(currentShapeObject);
-				currentShapeObject = null;
 			}
+			
 			repaint();
 
 		}
@@ -170,18 +207,35 @@ public class DrawingCanvas extends JPanel {
 				currentShapeObject.setY2(e.getY());
 			}
 			else if (isDragging) {
-				double mx = e.getX();
-				double my = e.getY();
+				int mx = e.getX();
+				int my = e.getY();
 				
-				int x1 = (int)(mx - offsetX);
-				int y1 = (int)(my - offsetY);
-				int x2 = currentShapeObject.getX2() + x1;
-				int y2 = currentShapeObject.getY2() + y1;
+				int x1 = mx - offsetX;
+				int y1 = my - offsetY;
+				int x2 = x1 + currentShapeObject.getWidth();
+				int y2 = y1 + currentShapeObject.getHeight();
 				
-				currentShapeObject.setX1(x1);
-				currentShapeObject.setY1(y1);
-				currentShapeObject.setX2(x2);
-				currentShapeObject.setY2(y2);
+				if (currentShapeObject.getX1() < currentShapeObject.getX2()) {
+					currentShapeObject.setX1(x1);
+					currentShapeObject.setX2(x2);
+				}
+				else {
+					x1 = mx + offsetX;
+					x2 = x1 + currentShapeObject.getWidth();
+					currentShapeObject.setX1(x2);
+					currentShapeObject.setX2(x1);
+				}
+				
+				if (currentShapeObject.getY1() < currentShapeObject.getY2()) {
+					currentShapeObject.setY1(y1);
+					currentShapeObject.setY2(y2);
+				}
+				else {
+					y1 = my + offsetY;
+					y2 = y1 + currentShapeObject.getHeight();
+					currentShapeObject.setY1(y2);
+					currentShapeObject.setY2(y1);
+				}
 			}
 			
 			statusLabel.setText(

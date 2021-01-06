@@ -19,6 +19,9 @@ public class Rectangle extends DrawingObjectBounds{
 			) {
 		super(x1, y1, x2, y2, color, fill);
 	}
+	public Rectangle(Rectangle source) {
+		super(source);
+	}
 	
 	@Override
 	public void draw(Graphics g) {
@@ -31,6 +34,8 @@ public class Rectangle extends DrawingObjectBounds{
 					rectangleWidth, 
 					rectangleHeight
 				);
+		
+		super.draw(g);
 	}
 	
 }

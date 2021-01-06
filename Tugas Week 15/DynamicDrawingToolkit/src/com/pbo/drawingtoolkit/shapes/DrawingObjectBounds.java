@@ -15,6 +15,9 @@ public abstract class DrawingObjectBounds extends DrawingObject {
 			) {
 		super(x1, y1, x2, y2, color);
 	}
+	public DrawingObjectBounds(DrawingObjectBounds source) {
+		super(source);
+	}
 	
 	public int getUpperLeftX() {
 		return Math.min(getX1(), getX2());
@@ -22,10 +25,5 @@ public abstract class DrawingObjectBounds extends DrawingObject {
 	public int getUpperLeftY() {
 		return Math.min(getY1(), getY2());
 	}
-	public int getWidth() {
-		return Math.abs(getX1()-getX2());
-	}
-	public int getHeight() {
-		return Math.abs(getY1()-getY2());
-	}
+	
 }

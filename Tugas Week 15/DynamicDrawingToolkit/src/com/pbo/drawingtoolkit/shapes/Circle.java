@@ -19,6 +19,9 @@ public class Circle extends DrawingObjectBounds {
 			) {
 		super(x1, y1, x2, y2, color, fill);
 	}
+	public Circle(Circle source) {
+		super(source);
+	}
 	
 	@Override
 	public void draw(Graphics g) {
@@ -31,6 +34,8 @@ public class Circle extends DrawingObjectBounds {
 					circleWidth, 
 					circleHeight
 				);
+		
+		super.draw(g);
 	}
  
 }
